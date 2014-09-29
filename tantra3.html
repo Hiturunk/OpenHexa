@@ -16,16 +16,13 @@
 				width: 50px;
 			}
 			iframe {
-				position: fixed;
-				height: 95%;
-				width: 95%;
+				resize: both;
 			}
-			#browserWrapper {
+			#wrapper {
 				background-color: grey;
 				border: black ridge 3px;
-				position: fixed;
 				resize: both;
-				overflow: visible;
+				position: fixed;
 			}
 			div {
 				overflow: auto;
@@ -54,29 +51,30 @@
 			}
 		</style>
 		<script>
+			var historyLength = 0;
 			var counter = 0;
 			function start(){
 				if(counter == 0){
-					var menuWrapper = document.createElement("div");
-					var menu = document.createElement("table");
-					var menuRow = document.createElement("tr");
-					var terminalIcon = document.createElement("img");
 					var homeButton = document.getElementById("homeButton");
-					var cell = document.createElement("td");
-					var cell2 = document.createElement("td");
-					var menuText = document.createTextNode("Main Menu");
+					var terminalIcon = document.createElement("img");
 						terminalIcon.setAttribute("src","terminal.png");
 						terminalIcon.setAttribute("onclick","rezCommandLine()");
-						menuWrapper.id = "menu";
-						menuRow.id = "toolBox";
-						terminalIcon.appendChild(menuText);
+					var cell = document.createElement("td");
 						cell.appendChild(homeButton);
+					var cell2 = document.createElement("td");
 						cell2.appendChild(terminalIcon);
+					var menuText = document.createTextNode("Main Menu");
+					var menuRow = document.createElement("tr");
+						menuRow.id = "toolBox";
 						menuRow.appendChild(cell);
 						menuRow.appendChild(cell2);
+					var menu = document.createElement("table");
 						menu.appendChild(menuRow);
+					var menuWrapper = document.createElement("div");
+						menuWrapper.id = "menu";
+						menuWrapper.appendChild(menuText);
 						menuWrapper.appendChild(menu);
-						document.body.appendChild(menuWrapper);
+					document.body.appendChild(menuWrapper);
 					counter++;
 					alert("Welcome to the Panarka webspace, currently our project is limited to a command-line interface and iframed Browsing window. To access the command line, click on the terminal icon.");
 				}
@@ -99,79 +97,122 @@
 				}
 			};
 			function evaluate(ex){
-				alert(eval(ex));
+				var historyNode = document.getElementById("historyNode");
+				var answer = eval(ex);
+				var answerText = ex.toString() + " = " + answer.toString();
+				var answerNode = document.createTextNode(answerText);
+				historyNode.appendChild(answerNode);
+				alert(answer);
 			}
 			function changeIframe() {
 				var url = document.getElementById("addressBar").value;
 				var browser = document.getElementById("browser");
 				browser.src = url;
 			}
-			function createBrowser(){
-				var wrapper = document.createElement("div");
-					wrapper.id = "browserWrapper";
-				var browser = document.createElement("iframe");;
+			function rezBrowser(){
+				var browser = document.createElement("iframe");
 					browser.id = "browser";
+					browser.src = "http://www.bing.com/"
 				var addressBar = document.createElement("input");
-				var go = document.createElement("button");
-				var browserBox = document.createElement("div");
-					browserBox.id = "browserBox";
-					go.setAttribute("onclick", "changeIframe()");
-					go.innerHTML="Go";
 					addressBar.type = "text";
 					addressBar.id = "addressBar";
-					browser.src = "http://www.bing.com/"
+				var go = document.createElement("button");
+					go.setAttribute("onclick", "changeIframe()");
+					go.innerHTML="Go";
+				var bBox = document.createElement("div");
+					bBox.id = "browserBox";
+					bBox.appendChild(browser);
+				var wrapper = document.createElement("div");
+					wrapper.id = "wrapper";
+					wrapper.appendChild(addressBar);
+					wrapper.appendChild(go);
+					wrapper.appendChild(bBox);
+				document.body.appendChild(wrapper);
+			}
+			function rezBrowserTo(url){
+				var browser = document.createElement("iframe");
+					browser.id = "browser";
+					browser.src = url;
+				var addressBar = document.createElement("input");
+					addressBar.type = "text";
+					addressBar.id = "addressBar";
+				var go = document.createElement("button");
+					go.setAttribute("onclick", "changeIframe()");
+					go.innerHTML="Go";
+				var browserBox = document.createElement("div");
+					browserBox.id = "browserBox";
 					browserBox.appendChild(browser);
+				var wrapper = document.createElement("div");
+					wrapper.id = "browserWrapper";
 					wrapper.appendChild(addressBar);
 					wrapper.appendChild(go);
 					wrapper.appendChild(browserBox);
-					document.body.appendChild(wrapper);
+				document.body.appendChild(wrapper);
 			}
 			function openPopup (url) {
 				window.open(url,'window','width=200,height=200,scrollbars=yes,status=yes');
 			};
-			function createElement(element,target,id){
+			function rezElement(element,target,id){
 				var instance = document.createElement(element);
 				var target = document.getElementById(target);
-				target.appendChild(instance);
+					target.appendChild(instance);
+			}
+			function rezHistory(){
+				var history = document.createElement("div");
+					history.id = "historyNode";
+				document.body.appendChild(history);
 			}
 			function rezCommandLine() {
-				var terminal = document.createElement("div");
-					terminal.id = "terminal";
 				var input = document.createElement("input");
-				var container = document.getElementById("menu");
 					input.type = "text";
-					input.id = "commandLine";
+					input.id = "commandLine";;
 				var submit = document.createElement("button");
 					submit.setAttribute("onclick","parseCommandLine()");
-				terminal.appendChild(input);
-				terminal.appendChild(submit);
-				container.appendChild(terminal);
+				var terminal = document.createElement("div");
+					terminal.id = "terminal";
+					terminal.appendChild(input);
+					terminal.appendChild(submit);
+				var container = document.getElementById("menu")
+					container.appendChild(terminal);
+				rezHistory();
 			}
 			function parseCommandLine() {
 				var target = document.getElementById("commandLine");
 				var data = target.value;
 				var dataSplit = data.split(" ");
 				var comLength = dataSplit.length;
+				var historyNode = document.getElementById("historyNode");
+				var line = document.createElement("li");
+					line.id = "line" + historyLength;
+					historyLength++;
+				var history = document.createTextNode(data);
+					line.appendChild(history);
+					historyNode.appendChild(line);
 				var cmd = dataSplit[0];
 				switch(cmd){
-					case 'run':
+					case 'run': case 'open':
 						var program = dataSplit[1];
 						alert("Running " + program);
 						switch(program){
 							case 'test':
 								alert("The Terminal is operating properly.");
 								break;
-							case 'createElement':
-								var which = prompt("Name?","td");
-								var id = prompt("ID?","Blah");
-								var target = prompt("Location?","table");
-								createElement(which,target,id);
+							case 'rezElement':
+								var which = prompt("Please provide the element's html tag.","td");
+								var id = prompt("Give this element an ID.","Blah");
+								var target = prompt("Where are we attaching this element?(specify an ID)","table");
+								rezElement(which,target,id);
 								break;
 							case 'calculator':
 								openPopup("calculator/calculator.html");
 								break;
 							case 'browser':
-								createBrowser();
+								if(dataSplit[2] == "to"){
+									rezBrowserTo(dataSplit[3]);
+								}
+								else{
+									rezBrowser();
+								};
 								break;
 							case '3dbrowser':
 								openPopup("hexa/index.html");
@@ -182,12 +223,13 @@
 						evaluate(x);
 						break;
 					case 'help':
-						alert("Current commands are run, eval, and help. The current list of programs: test, createElement, calculator, browser, and 3dbrowser. Usage Ex: run browser");
+						alert("Current commands are run, eval, and help. The current list of programs: test, rezElement, calculator, browser, and 3dbrowser. Usage Ex: run browser");
 				}
 			};
 		</script>
 	</head>
 	<body>
 		<image src="home.png" id="homeButton" onclick="start()"></image>
+		<div id="browserContainer"></div>
 	</body>
 </html>
