@@ -1,0 +1,25 @@
+table {
+	border: 5px groove grey;
+}
+
+td {
+	border: 2px groove grey;
+	display: inline;
+	border-radius: 100%;
+}
+thead {
+    border: 2px groove grey
+}
+button {
+    height: 20px;
+    width: 20px;
+    border-radius: 100%;
+    background-color: white;
+}
+td:hover {
+	border: 2px groove yellow;
+	
+}
+table:hover {
+	border: 5px groove #9999FF;
+}

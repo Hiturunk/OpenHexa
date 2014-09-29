@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			#homeButton {
+				border: grey ridge 3px;
+			}
+			#homeButton:hover {
+				border: yellow ridge 3px;
+			}
+			img:hover{
+				border: yellow ridge 3px;
+			}
+			img {
+				height: 50px;
+				width: 50px;
+			}
+			iframe {
+				position: fixed;
+				height: 95%;
+				width: 95%;
+			}
+			#browserWrapper {
+				background-color: grey;
+				border: black ridge 3px;
+				position: fixed;
+				resize: both;
+				overflow: visible;
+			}
+			div {
+				overflow: auto;
+			}
+			#menu {
+				z-index: 10;
+				background-color:#9999FF;
+				overflow: auto;
+			}
+			#menu img {
+				height:50px;
+				width: 50px;
+				z-index: 15;
+				border: grey ridge 3px;
+			}
+			#menu img:hover{
+				border: yellow ridge 3px;
+			}
+			#terminal {
+				overflow: auto;
+				background-color:white;
+				border: 3px grey ridge;
+			}
+			#browserBox {
+				overflow: auto;
+			}
+		</style>
+		<script>
+			var counter = 0;
+			function start(){
+				if(counter == 0){
+					var menuWrapper = document.createElement("div");
+					var menu = document.createElement("table");
+					var menuRow = document.createElement("tr");
+					var terminalIcon = document.createElement("img");
+					var homeButton = document.getElementById("homeButton");
+					var cell = document.createElement("td");
+					var cell2 = document.createElement("td");
+					var menuText = document.createTextNode("Main Menu");
+						terminalIcon.setAttribute("src","terminal.png");
+						terminalIcon.setAttribute("onclick","rezCommandLine()");
+						menuWrapper.id = "menu";
+						menuRow.id = "toolBox";
+						terminalIcon.appendChild(menuText);
+						cell.appendChild(homeButton);
+						cell2.appendChild(terminalIcon);
+						menuRow.appendChild(cell);
+						menuRow.appendChild(cell2);
+						menu.appendChild(menuRow);
+						menuWrapper.appendChild(menu);
+						document.body.appendChild(menuWrapper);
+					counter++;
+					alert("Welcome to the Panarka webspace, currently our project is limited to a command-line interface and iframed Browsing window. To access the command line, click on the terminal icon.");
+				}
+				else {
+					var homeButton = document.getElementById("homeButton");
+						document.body.appendChild(homeButton);
+					var menu = document.getElementById("menu");
+						document.body.removeChild(menu);
+						counter--;
+				}
+					
+			}
+			function toggleElement(id) {
+				var element = document.getElementById(id);
+				if(element.style.display != 'none') {
+					element.style.display = 'none';
+				}
+				else {
+					element.style.display = 'block';
+				}
+			};
+			function evaluate(ex){
+				alert(eval(ex));
+			}
+			function changeIframe() {
+				var url = document.getElementById("addressBar").value;
+				var browser = document.getElementById("browser");
+				browser.src = url;
+			}
+			function createBrowser(){
+				var wrapper = document.createElement("div");
+					wrapper.id = "browserWrapper";
+				var browser = document.createElement("iframe");;
+					browser.id = "browser";
+				var addressBar = document.createElement("input");
+				var go = document.createElement("button");
+				var browserBox = document.createElement("div");
+					browserBox.id = "browserBox";
+					go.setAttribute("onclick", "changeIframe()");
+					go.innerHTML="Go";
+					addressBar.type = "text";
+					addressBar.id = "addressBar";
+					browser.src = "http://www.bing.com/"
+					browserBox.appendChild(browser);
+					wrapper.appendChild(addressBar);
+					wrapper.appendChild(go);
+					wrapper.appendChild(browserBox);
+					document.body.appendChild(wrapper);
+			}
+			function openPopup (url) {
+				window.open(url,'window','width=200,height=200,scrollbars=yes,status=yes');
+			};
+			function createElement(element,target,id){
+				var instance = document.createElement(element);
+				var target = document.getElementById(target);
+				target.appendChild(instance);
+			}
+			function rezCommandLine() {
+				var terminal = document.createElement("div");
+					terminal.id = "terminal";
+				var input = document.createElement("input");
+				var container = document.getElementById("menu");
+					input.type = "text";
+					input.id = "commandLine";
+				var submit = document.createElement("button");
+					submit.setAttribute("onclick","parseCommandLine()");
+				terminal.appendChild(input);
+				terminal.appendChild(submit);
+				container.appendChild(terminal);
+			}
+			function parseCommandLine() {
+				var target = document.getElementById("commandLine");
+				var data = target.value;
+				var dataSplit = data.split(" ");
+				var comLength = dataSplit.length;
+				var cmd = dataSplit[0];
+				switch(cmd){
+					case 'run':
+						var program = dataSplit[1];
+						alert("Running " + program);
+						switch(program){
+							case 'test':
+								alert("The Terminal is operating properly.");
+								break;
+							case 'createElement':
+								var which = prompt("Name?","td");
+								var id = prompt("ID?","Blah");
+								var target = prompt("Location?","table");
+								createElement(which,target,id);
+								break;
+							case 'calculator':
+								openPopup("calculator/calculator.html");
+								break;
+							case 'browser':
+								createBrowser();
+								break;
+							case '3dbrowser':
+								openPopup("hexa/index.html");
+								break;
+						}
+					case 'eval':
+						var x = dataSplit[1];
+						evaluate(x);
+						break;
+					case 'help':
+						alert("Current commands are run, eval, and help. The current list of programs: test, createElement, calculator, browser, and 3dbrowser. Usage Ex: run browser");
+				}
+			};
+		</script>
+	</head>
+	<body>
+		<image src="home.png" id="homeButton" onclick="start()"></image>
+	</body>
+</html>

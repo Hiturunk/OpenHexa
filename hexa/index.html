@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://fc03.deviantart.net/fs70/f/2012/122/d/8/black_and_yellow_chrome__ico_by_pinkiepiestyle-d4y9k97.ico" type="image/x-icon" />
+<link rel="image_src" href="http://www.ncnews.biz/panhexa/websitesummary.jpg" / ><!--formatted-->
+    <title>PanHexa</title>
+    <meta name="description" content="PanHexa - The New Cloud Operating System">
+    <style>
+        html{
+            height: 100%;
+        }
+        body{
+            height: 100%;
+	    background-image:url('http://i286.photobucket.com/albums/ll95/Stahlwulf/matrix.gif');
+            background-color: #00ffff;
+	    background-repeat:stretch;
+            font-family: "Microsoft Sans Serif",Verdana,Arial,sans-serif;
+            overflow: hidden;
+        }
+        ul{
+            text-align: left;
+        }
+        #messagewrapper{
+            z-index: 100;
+            position: absolute;
+            display: none;
+            top: 20%;
+            left: 25%;
+            width: 50%;
+            height: 60%;
+            overflow: auto;
+        }
+        #messagecontainer{
+            
+            background-color: #ffffff;
+            border: 1px solid #000000;
+            text-align: center;
+        }
+        
+        #threedwrapper *{
+            -webkit-transform-style: preserve-3d;
+            transform-style:preserve-3d;
+        }
+        #threedwrapper{
+            -webkit-perspective: 1700px;
+            perspective: 1700px;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+        #threedcontainer{
+            height: 100%;
+            width: 100%;
+            -webkit-transform: translateZ(-400px);
+            transform: translateZ(-400px);
+            -webkit-transition: all 1s;
+            transition: all 1s;
+        }
+        #transformer{
+            -webkit-transition: all 1s;
+            transition: all 1s;
+            height: 100%;
+            width: 100%;
+        }
+        
+        .treecontainer{
+            -webkit-transform: translateZ(-3000px);
+            transform: translateZ(-3000px);
+            height: 100%;
+            width: 100%;
+        }
+        .flipper{
+            position: absolute;
+            -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+            height: 100%;
+            width: 100%;
+            font-size: 58pt;
+        }
+        .outvertcenter{
+            position: absolute;
+            display: table;
+            height: 100%;
+            width: 100%;
+            text-align: center;
+        }
+        .invertcenter{
+            display: table-cell;
+            vertical-align: middle;
+            width: 100%;
+            text-align: center;
+        }
+        .sectionwall{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0,255,0,0.5);
+            border: 3px solid #000000;
+            
+            font-size: 56pt;
+            color: #000000;
+            height: 100%;
+            width: 100%;
+            
+            -webkit-transition: opacity 1s;
+            transition: opacity 1s;
+        }
+        .secwall0{
+            /*wall to the left of start*/
+            -webkit-transform-origin: left center;
+            transform-origin: left center;
+            -webkit-transform: rotateY(240deg);
+            transform: rotateY(240deg);
+        }
+        .secwall1{
+            /*wall in front at start*/
+            /*shut up. It's to make the javascript easier*/
+            -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+        }
+        .secwall2{
+            /*wall to the right of start*/
+            -webkit-transform-origin: right center;
+            transform-origin: right center;
+            -webkit-transform: rotateY(-240deg);
+            transform: rotateY(-240deg);
+	}
+	.secwall3{
+	    /*We're bending the cube in to a hexagon.*/
+	    -webkit-transform-origin: center;
+	    transform-origin: center;
+	    -webkit-transform: rotateY(-180deg);
+	    transform: rotateY(-180deg);
+	    -webkit-transform: translateZ(4500px);
+	}
+	.secwall4{
+	    -webkit-transform-origin:center;
+	    transform-origin:center;
+	    -webkit-transform: rotateY(-240deg);
+	    transform: rotateY(-240deg);
+	    -webkit-transform: translateZ(4500px);
+	    transform: translateZ(4500px);
+	    -webkit-transform: translateX(1500px);
+	    transform: translateX(4500px);
+	}
+	.secwall5{
+	    -webkit-transform-origin:center;
+	    transform-origin:center;
+	    -webkit-transform: rotateY(240deg);
+	    transform: rotateY(240deg);
+	    -webkit-transform: translateZ(4500px);
+	    -webkit-transform: translateX(1500px);
+	}
+        .webpage{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+        }
+        .nocolor{
+            background-color: rgba(0,0,0,0);
+        }
+        
+        .plusonecontainer{
+            position:absolute;
+            left:48%;
+            bottom:0;
+        }
+}
+    </style>
+    <script type="text/javascript">
+        window.onerror=function(e){
+            alert('JavaScript error: '+e.message+' on line '+e.lineNumber+' in file '+e.fileName);
+        }
+        //global var
+        var invisibleElt;
+        //just this
+        document.getElementsByTagName('style')[0].onload="this.innerHTML+='.secwall3{transform: translateZ(-'+window.innerWidth+'px) -webkit-transform:translateZ(-'+window.innerWidth+'px)}'"
+        
+        //pages data
+        var pagesData={
+                'tab1':'http://ncns.usanethosting.com/panarka/index.html',
+                'tab2':'http://ncns.usanethosting.com/panarka/index.html',
+		'tab3':'http://ncns.usanethosting.com/panarka/index.html',
+		'tab4':'http://ncns.usanethosting.com/panarka/aboutme/aboutme.html',
+                }
+        //just some information that controls the transforming and shit
+        var rotateTransforms=[/*left wall*/'rotateY(-60deg) translateX('+(window.innerWidth/2-window.innerWidth/5)+'px)',
+            /*front wall*/
+            'rotateY(0deg) translateZ('+(window.innerWidth/2-window.innerWidth/5)+'px)',
+            /*right wall*/
+            'rotateY(60deg) translateX(-'+(window.innerWidth/2-window.innerWidth/5)+'px)',
+            /*back wall*/
+            'rotateY(180deg) translateZ(-'+(window.innerWidth/2-window.innerWidth/5)+'px)'
+        ];
+        var curFace=1;
+        
+        //info about transforms for link-making
+        var curTransforms='';
+
+        //functions defined later
+        var disableTransitions,enableTransitions;
+        
+        document.addEventListener('DOMContentLoaded',function(){
+            
+            function has3d() {
+                var el = document.createElement('p'), 
+                has3d,
+                    transforms = {
+                        'webkitTransform':'-webkit-transform',
+                        'transform':'transform'
+                    };
+
+                // Add it to the body to get the computed style.
+                document.body.insertBefore(el, null);
+
+                for (var t in transforms) {
+                    if (el.style[t] !== undefined) {
+                        el.style[t] = "translate3d(1px,1px,1px)";
+                        has3d = window.getComputedStyle(el).getPropertyValue(transforms[t]);
+                    }
+                }
+
+                document.body.removeChild(el);
+
+                return (has3d !== undefined && has3d.length > 0 && has3d !== "none");
+            }
+            //that function copied from http://stackoverflow.com/questions/5661671/detecting-transform-translate3d-support
+            
+            //if 3d not supported or IE
+            if(!has3d()||!!document.documentMode)
+                window.location.replace('bad-browser.html');
+
+            //about the message
+            if(!localStorage.alreadyTutorialed){
+                document.getElementById('messagewrapper').style.display='block';
+                localStorage.alreadyTutorialed=true;
+            }
+
+            //just definitions of containers and crap
+            var container=document.getElementById('threedcontainer');
+            var transformer=document.getElementById('transformer');
+
+            container.style.webkitTransform=rotateTransforms[1];
+            container.style.transform=rotateTransforms[1];
+
+            //the little thing to properly position the transformer
+            transformer.style.webkitTransform='translateZ(-'+(window.innerWidth/2)+'px)';
+            transformer.style.transform='translateZ(-'+(window.innerWidth/2)+'px)';
+
+            //a recurring function to add CHILDREN!
+            function createChildren(dataObj,containerElt){
+                //ok, dataObj is data to traverse, containerElt is thing to add stuff to
+                //traverse dataObj
+                var dataKeys=Object.keys(dataObj);
+                dataKeys.forEach(function(curKey,wallNum){
+                    //the first order of buisiness is to create the element and add classes
+                    var wallElt=document.createElement('div');
+                    wallElt.classList.add('sectionwall');
+                    wallElt.classList.add('secwall'+wallNum);
+                    var wallFlipElt=document.createElement('div');
+                    wallFlipElt.classList.add('flipper');
+                    //add it
+                    wallElt.appendChild(wallFlipElt);
+                    //get the current object
+                    var curObj=dataObj[curKey];
+                    //if it's a tree...
+                    if(typeof curObj=='object'){
+                        //we need to get it vertically centered. Just some crap here
+                        var outVert=document.createElement('div');
+                        outVert.classList.add('outvertcenter');
+                        var inVert=document.createElement('div');
+                        inVert.classList.add('invertcenter');
+                        //label=object key
+                        inVert.textContent=curKey;
+                        outVert.appendChild(inVert);
+                        wallFlipElt.appendChild(outVert);
+                        //first off, make an elt for the container of this mini-tree
+                        var miniTreeContainer=document.createElement('div');
+                        //styling crap
+                        miniTreeContainer.classList.add('treecontainer');
+                        //now let's append that 
+                        wallFlipElt.appendChild(miniTreeContainer);
+                        //and get it's children
+                        createChildren(curObj,miniTreeContainer);
+                    }
+                    else{
+                        //ok, we need to somehow or other get an iframe in there. This is definitely interesting...
+                        var iFrame=document.createElement('iframe');
+                        iFrame.setAttribute('src',dataObj[curKey]);
+                        iFrame.classList.add('webpage');
+                        wallFlipElt.appendChild(iFrame);
+                        //and also this
+                        wallElt.classList.add('nocolor');
+                    }
+                    containerElt.appendChild(wallElt);
+                });
+            }
+            createChildren(pagesData,transformer);
+            
+            //now we are going to see if there is a hash and do stuff about it
+            if(window.location.hash.length>2){
+                var hashData=window.location.hash.substring(2);
+                for(var k=0;k<hashData.length;k++){
+                    switch(hashData[k]){
+                            case 'l':
+                                move('left');
+                                break;
+                            case 'r':
+                                move('right');
+                                break;
+                            case 'f':
+                                forward();
+                                break;
+                            default:
+                                alert('Client-side error parsing URL - invalid hash');
+                    }
+                }
+            }
+        },false); 
+        //the axises
+        var axis=['X','Z','-X','-Z'];
+        //now moving functions and crap
+        function move(direction){
+            //keeping this simple for testing
+            if(direction=='left'){
+                curFace--;
+                if(curTransforms[curTransforms.length-1]=='r')
+                    curTransforms=curTransforms.substring(0,curTransforms.length-1);
+                else{
+                    curTransforms+='l';
+                    if(curTransforms.indexOf('lll')!==-1)
+                        curTransforms=curTransforms.replace('lll','r');
+                    else if(curTransforms.indexOf('llll')!==-1)
+                        curTransforms=curTransforms.replace('llll','');
+                }
+            }
+            else{
+                curFace++;
+                if(curTransforms[curTransforms.length-1]=='l')
+                    curTransforms=curTransforms.substring(0,curTransforms.length-1);
+                else{
+                    curTransforms+='r';
+                    if(curTransforms.indexOf('rrr')!==-1)
+                        curTransforms=curTransforms.replace('rrr','l');
+                    else if(curTransforms.indexOf('rrrr')!==-1)
+                        curTransforms=curTransforms.replace('rrrr','');
+                }
+            }
+            if(curFace<0)
+                curFace=3;
+            if(curFace>3)
+                curFace=0;
+            var container=document.getElementById('threedcontainer');
+            //now for this thingy
+            setTimeout(function(){
+                if(invisibleElt){
+                    invisibleElt.style.opacity=1;
+                    invisibleElt=null;
+                }
+                var coverElt=document.elementFromPoint(window.innerWidth/2,1);
+                if(coverElt.classList.contains('webpage')||coverElt.classList.contains('outvertcenter')||coverElt.classList.contains('invertcenter')){
+                    invisibleElt=coverElt.classList.contains('invertcenter')?coverElt.parentNode.parentNode.parentNode:coverElt.parentNode.parentNode;
+                    invisibleElt.style.opacity=0;
+                }
+            },1000);
+            //actually apply the styling
+            container.style.webkitTransform=rotateTransforms[curFace];
+            container.style.transform=rotateTransforms[curFace];
+            window.location.hash='#!'+curTransforms;
+        }
+
+        function forward(){
+            curTransforms+='f';
+            window.location.hash='#!'+curTransforms;
+            //the transformer element
+            var transformer=document.getElementById('transformer');
+            //the container element
+            var container=document.getElementById('threedcontainer');
+            //the string we're going to be transforming the thingy by
+            var transformString=' translate'+axis[curFace][axis[curFace].length-1]+'('+(axis[curFace][0]=='-'?'-':'')+'3000px)';
+            transformer.style.webkitTransform+=transformString;
+            transformer.style.transform+=transformString;
+        }
+
+        function backward(){
+            if(curTransforms.indexOf('f')!==-1){
+                curTransforms=curTransforms.substring(0,curTransforms.lastIndexOf('f'))+curTransforms.substring(curTransforms.lastIndexOf('f')+1,curTransforms.length);
+            }
+            curTransforms=curTransforms.replace('llrr','');
+            curTransforms=curTransforms.replace('rrll','');
+            curTransforms=curTransforms.replace('lr','');
+            curTransforms=curTransforms.replace('rl','');
+            window.location.hash='#!'+curTransforms;
+            //just remove the end of the THINGY!
+            var transformer=document.getElementById('transformer');
+            var sf=transformer.style.webkitTransform||transformer.style.transform;
+            //make sure that this should be happening
+            if(sf.indexOf(' ')===-1)
+                return;
+            transformer.style.webkitTransform=sf.substring(0,sf.lastIndexOf(' '));
+            transformer.style.transform=sf.substring(0,sf.lastIndexOf(' '));
+        }
+        
+        //handler for key press
+        window.addEventListener('keydown',function(e){
+            //I think this is pretty self-explanatory
+            e.preventDefault();
+            switch(e.keyCode){
+                case 37:
+                    move('left');
+                    break;
+                case 39:
+                    move('right');
+                    break;
+                case 38:
+                    forward();
+                    break;
+                case 40:
+                    backward();
+                    break;
+            }
+        },false);
+        
+        //swipe vars
+        var startX;
+        var startY;
+        //now for touch events
+        document.addEventListener('touchstart',function(e){
+            var touch=e.changedTouches[0];
+            startX=touch.clientX;
+            startY=touch.clientY
+        },false);
+        document.addEventListener('touchmove',function(e){e.preventDefault();},false);
+        document.addEventListener('touchend',endHandler,false);
+        document.addEventListener('touchcancel',endHandler,false);
+        
+        function endHandler(e){
+            //just move depending on stuff
+            var touch=e.changedTouches[0];
+            var diffX=touch.clientX-startX;
+            var diffY=touch.clientY-startY;
+            debugger;
+            if(diffX>window.innerWidth/5)
+                move('left');
+            else if(diffX<-(window.innerWidth/5))
+                move('right');
+            else if(diffY>window.innerHeight/4)
+                forward();
+            else if(diffY<-(window.innerHeight/4))
+                backward();
+        }
+    </script>
+</head>
+<body>
+    <div id="messagewrapper">
+        <div id="messagecontainer">
+            <h2>Welcome to the MOSTEM Website!</h2>
+            This is the official Panhexa website maintained by Panarka Corporation's Research and Development division. The way this website looks may be unfamiliar to you, so we'll tell you how to use it here:<br>
+            <ul>
+                <li>On a computer or tablet with keyboard: Use the left and right arrow keys to look around</li>
+                <li>Use the up arrow key to go forward</li>
+                <li>Use the down arrow key to go backward</li>
+                <li>On a touch device, swipe left and right to look around</li>
+                <li>Swipe down to go forward</li>
+                <li>Swipe up to go backwards</li>
+                <li>To sign up for pre-release, please <a href="javascript:document.body.removeChild(document.getElementById('messagewrapper'));window.location.hash='#!rf';window.location.reload();void(0)">click here</a> or go to How to get it&gt;Signup for Stage 2</li>
+            </ul>
+            We hope you enjoy MOSTEM!<br>
+            <b>IMPORTANT: Internet Explorer is not supported, please use Chrome.</b><br>
+            <button onclick="document.body.removeChild(document.getElementById('messagewrapper'))">Close</button>
+        </div>
+    </div>
+    <div id="threedwrapper">
+        <div id="threedcontainer">
+            <div id="transformer">
+            </div>
+        </div>
+    </div>
+
+    <!-- Place this tag where you want the +1 button to render. -->
+    <div class="plusonecontainer">
+        <div class="g-plusone" data-size="tall" data-href="http://ncnews.biz/panhexa/"></div>
+    </div>
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- PanHexa -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px;position:fixed;bottom:5px;right:5px;"
+     data-ad-client="ca-pub-2354188306197470"
+     data-ad-slot="3781446241"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</body>
+</html>
