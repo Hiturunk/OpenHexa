@@ -101,6 +101,17 @@
 				}
 					
 			}
+			function base_convert(number, from_base, to_base) {
+				return parseInt(number, from_base || 10).toString(to_base || 10);
+			}
+			function base12Calculation(ex){
+				var answer = eval(ex);
+				var base12answer = base_convert(answer,10,12);
+				var answerText = ex.toString() + " = " + base12answer.toString() + " in base 12." + " in base 10 this would be expressed as " + answer.toString();
+				var answerNode = document.createTextNode(answerText);
+				var historyNode = document.getElementById("historyNode");
+					historyNode.appendChild(answerNode);
+			}
 			function toggleElement(id) {
 				var element = document.getElementById(id);
 				if(element.style.display != 'none') {
@@ -238,6 +249,10 @@
 						break;
 					case 'help':
 						alert("Current commands are run, eval, and help. The current list of programs: test, rezElement, calculator, browser, and 3dbrowser. Usage Ex: run browser");
+					case 'evalbase12':
+						var ex = dataSplit[1];
+						base12Calculation(ex);
+						break;
 				}
 			};
 		</script>
