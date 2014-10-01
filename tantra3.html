@@ -101,6 +101,23 @@
 				}
 					
 			}
+			function rezBookmark(url,imgsrc) {
+				var toolBox = document.getElementById("toolBox");
+				var link = document.createElement("img");
+					link.src = imgsrc;
+					link.setAttribute("onclick","goto('" + url + "')");
+					toolBox.appendChild(link);
+			}
+			function addBookmarks() {
+				var input = prompt("Enter the link data as URL,IMG_URL","http://www.cnet.com/,test.jpg");
+				var inputSplit = input.split(" ");
+				for(i=0;i<inputSplit.length;i++){
+					var link = inputSplit[i].split(",");
+					var linkurl = link[0];
+					var linksrc = link[1];
+					rezBookmark(linkurl,linksrc);
+				}
+			}
 			function base_convert(number, from_base, to_base) {
 				return parseInt(number, from_base || 10).toString(to_base || 10);
 			}
@@ -129,10 +146,15 @@
 					historyNode.appendChild(answerNode);
 				alert(answer);
 			}
+			function goto(url) {
+				var urldata = url;
+				var browser = document.getElementById("browser");
+					browser.src = urldata;
+			}
 			function changeIframe() {
 				var url = document.getElementById("addressBar").value;
 				var browser = document.getElementById("browser");
-					browser.src = url;
+				browser.src = url;
 			}
 			function rezBrowser(){
 				var browser = document.createElement("iframe");
@@ -147,10 +169,17 @@
 				var bBox = document.createElement("div");
 					bBox.id = "browserBox";
 					bBox.appendChild(browser);
+				var bookmarkButton = document.createElement("button");
+					bookmarkButton.setAttribute("onclick","addBookmarks()");
+					bookmarkButton.innerHTML="Add Bookmark";
+				var toolBox = document.createElement("div");
+					toolBox.id = "toolBox";
+					toolBox.appendChild(addressBar);
+					toolBox.appendChild(go);
+					toolBox.appendChild(bookmarkButton);
 				var wrapper = document.createElement("div");
 					wrapper.id = "wrapper";
-					wrapper.appendChild(addressBar);
-					wrapper.appendChild(go);
+					wrapper.appendChild(toolBox);
 					wrapper.appendChild(bBox);
 				document.body.appendChild(wrapper);
 			}
