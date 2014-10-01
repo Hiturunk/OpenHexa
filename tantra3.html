@@ -77,21 +77,27 @@
 					var terminalIcon = document.createElement("img");
 						terminalIcon.setAttribute("src","terminal.png");
 						terminalIcon.setAttribute("onclick","rezCommandLine()");
-					var dwitekLogo = document.createElement("img");
-						dwitekLogo.setAttribute("src","dwitek.gif");
-						dwitekLogo.setAttribute("onclick","dwitek()");
+					var dwitekIcon = document.createElement("img");
+						dwitekIcon.setAttribute("src","dwitek.gif");
+						dwitekIcon.setAttribute("onclick","dwitek()");
+					var browserIcon = document.createElement("img");
+						browserIcon.setAttribute("src","browser.png");
+						browserIcon.setAttribute("onclick","rezBrowser()");
 					var cell = document.createElement("td");
 						cell.appendChild(homeButton);
 					var cell2 = document.createElement("td");
 						cell2.appendChild(terminalIcon);
 					var cell3 = document.createElement("td");
-						cell3.appendChild(dwitekLogo);
+						cell3.appendChild(dwitekIcon);
+					var cell4 = document.createElement("td");
+						cell4.appendChild(browserIcon);
 					var menuText = document.createTextNode("Main Menu");
 					var menuRow = document.createElement("tr");
 						menuRow.id = "toolBox";
 						menuRow.appendChild(cell);
 						menuRow.appendChild(cell2);
 						menuRow.appendChild(cell3);
+						menuRow.appendChild(cell4);
 					var menu = document.createElement("table");
 						menu.appendChild(menuRow);
 					var menuWrapper = document.createElement("div");
@@ -128,21 +134,27 @@
 					hiturunk.src = "hiturunk.jpg";
 					hiturunk.setAttribute("onclick","openPopup('http://www.facebook.com/hiturunk')");
 				dwitekStaff[2] = hiturunk;
-				var dwitekDesc = document.createTextNode("Dwitek is a technical logistics and software company that provides web-hosting, website development, advertising, and PC repair services.");
-				var h1 = document.createElement("h1");
-					h1.appendChild(document.createTextNode("Who we are:"));
-				var p1 = document.createElement("p");
-					p1.appendChild(dwitekDesc);
-				var p2 = document.createElement("p");
-					p2.appendChild(document.createTextNode("Currently Dwitek is staffed by " + dwitekStaff[0] + ", " + dwitekStaff[1] + ", "));
-					p2.appendChild(dwitekStaff[2]);
-					p2.appendChild(document.createTextNode(", " + dwitekStaff[3] + ", and " + dwitekStaff[4] + "."));
-				var aboutUs = document.createElement("div");
-					aboutUs.id = "aboutUs";
-					aboutUs.appendChild(h1);
-					aboutUs.appendChild(p1);
-					aboutUs.appendChild(p2);
-				document.body.appendChild(aboutUs);
+				var existing = document.getElementById("aboutUs");
+				if(existing){
+					document.body.removeChild(existing);
+				}
+				else {
+					var dwitekDesc = document.createTextNode("Dwitek is a technical logistics and software company that provides web-hosting, website development, advertising, and PC repair services.");
+					var h1 = document.createElement("h1");
+						h1.appendChild(document.createTextNode("Who we are:"));
+					var p1 = document.createElement("p");
+						p1.appendChild(dwitekDesc);
+					var p2 = document.createElement("p");
+						p2.appendChild(document.createTextNode("Currently Dwitek is staffed by " + dwitekStaff[0] + ", " + dwitekStaff[1] + ", "));
+						p2.appendChild(dwitekStaff[2]);
+						p2.appendChild(document.createTextNode(", " + dwitekStaff[3] + ", and " + dwitekStaff[4] + "."));
+					var aboutUs = document.createElement("div");
+						aboutUs.id = "aboutUs";
+						aboutUs.appendChild(h1);
+						aboutUs.appendChild(p1);
+						aboutUs.appendChild(p2);
+					document.body.appendChild(aboutUs);
+				}
 			}
 			function rezBookmark(url,imgsrc) {
 				var toolBox = document.getElementById("toolBox");
@@ -200,31 +212,37 @@
 				browser.src = url;
 			}
 			function rezBrowser(){
-				var browser = document.createElement("iframe");
-					browser.id = "browser";
-					browser.src = "http://www.bing.com/"
-				var addressBar = document.createElement("input");
-					addressBar.type = "text";
-					addressBar.id = "addressBar";
-				var go = document.createElement("button");
-					go.setAttribute("onclick", "changeIframe()");
-					go.innerHTML="Go";
-				var bBox = document.createElement("div");
-					bBox.id = "browserBox";
-					bBox.appendChild(browser);
-				var bookmarkButton = document.createElement("button");
-					bookmarkButton.setAttribute("onclick","addBookmarks()");
-					bookmarkButton.innerHTML="Add Bookmark";
-				var toolBox = document.createElement("div");
-					toolBox.id = "toolBox";
-					toolBox.appendChild(addressBar);
-					toolBox.appendChild(go);
-					toolBox.appendChild(bookmarkButton);
-				var wrapper = document.createElement("div");
-					wrapper.id = "wrapper";
-					wrapper.appendChild(toolBox);
-					wrapper.appendChild(bBox);
-				document.body.appendChild(wrapper);
+				var existing = document.getElementById("wrapper");
+				if(existing){
+					document.body.removeChild(existing);
+				}
+				else{
+					var browser = document.createElement("iframe");
+						browser.id = "browser";
+						browser.src = "http://www.bing.com/"
+					var addressBar = document.createElement("input");
+						addressBar.type = "text";
+						addressBar.id = "addressBar";
+					var go = document.createElement("button");
+						go.setAttribute("onclick", "changeIframe()");
+						go.innerHTML="Go";
+					var bBox = document.createElement("div");
+						bBox.id = "browserBox";
+						bBox.appendChild(browser);
+					var bookmarkButton = document.createElement("button");
+						bookmarkButton.setAttribute("onclick","addBookmarks()");
+						bookmarkButton.innerHTML="Add Bookmark";
+					var toolBox = document.createElement("div");
+						toolBox.id = "toolBox";
+						toolBox.appendChild(addressBar);
+						toolBox.appendChild(go);
+						toolBox.appendChild(bookmarkButton);
+					var wrapper = document.createElement("div");
+						wrapper.id = "wrapper";
+						wrapper.appendChild(toolBox);
+						wrapper.appendChild(bBox);
+					document.body.appendChild(wrapper);
+				}
 			}
 			function rezBrowserTo(url){
 				var browser = document.createElement("iframe");
@@ -260,18 +278,26 @@
 				document.body.appendChild(history);
 			}
 			function rezCommandLine() {
-				var input = document.createElement("input");
-					input.type = "text";
-					input.id = "commandLine";;
-				var submit = document.createElement("button");
-					submit.setAttribute("onclick","parseCommandLine()");
-				var terminal = document.createElement("div");
-					terminal.id = "terminal";
-					terminal.appendChild(input);
-					terminal.appendChild(submit);
-				var container = document.getElementById("menu")
-					container.appendChild(terminal);
-				rezHistory();
+				var container = document.getElementById("menu");
+				var existingCL = document.getElementById("terminal");
+				var existingHi = document.getElementById("historyNode");
+				if(existingCL){
+					container.removeChild(existingCL);
+					document.body.removeChild(existingHi);
+				}
+				else {
+					var input = document.createElement("textarea");
+						input.type = "text";
+						input.id = "commandLine";;
+					var submit = document.createElement("button");
+						submit.setAttribute("onclick","parseCommandLine()");
+					var terminal = document.createElement("div");
+						terminal.id = "terminal";
+						terminal.appendChild(input);
+						terminal.appendChild(submit);
+						container.appendChild(terminal);
+					rezHistory();
+				}
 			}
 			function parseCommandLine() {
 				var target = document.getElementById("commandLine");
