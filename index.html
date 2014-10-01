@@ -191,6 +191,14 @@
 			function base_convert(number, from_base, to_base) {
 				return parseInt(number, from_base || 10).toString(to_base || 10);
 			}
+			function base20Calculation(ex){
+				var answer = eval(ex);
+				var base20answer = base_convert(answer,10,20);
+				var answerText = ex.toString() + " = " + base20answer.toString() + " in base 20." + " in base 10 this would be expressed as " + answer.toString();
+				var answerNode = document.createTextNode(answerText);
+				var historyNode = document.getElementById("historyNode");
+					historyNode.appendChild(answerNode);
+			}
 			function base12Calculation(ex){
 				var answer = eval(ex);
 				var base12answer = base_convert(answer,10,12);
@@ -383,6 +391,10 @@
 						break;
 					case 'clearBookmarks':
 						clearBookmarks();
+						break;
+					case 'evalbase20':
+						var ex = dataSplit[1];
+						base20Calculation(ex);
 						break;
 				}
 			};
