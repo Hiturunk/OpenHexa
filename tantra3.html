@@ -2,6 +2,9 @@
 <html>
 	<head>
 		<style>
+			body {
+				background-image: url('matrix.gif');
+			}
 			#homeButton {
 				border: grey ridge 3px;
 				z-index: 100;
@@ -15,6 +18,7 @@
 			img {
 				height: 50px;
 				width: 50px;
+				border: black ridge 3px;
 			}
 			iframe {
 				resize: both;
@@ -55,8 +59,16 @@
 				background-color:white;
 				border: 3px grey ridge;
 			}
+			#aboutUs {
+				background-color: grey;
+			}
+			#aboutUs p {
+				border: 3px grey ridge;
+				background-color: white;
+			}
 		</style>
 		<script>
+			var dwitekStaff = ["Leon","Dwi","Hiturunk","Summer","Kion"];
 			var historyLength = 0;
 			var counter = 0;
 			function start(){
@@ -65,15 +77,21 @@
 					var terminalIcon = document.createElement("img");
 						terminalIcon.setAttribute("src","terminal.png");
 						terminalIcon.setAttribute("onclick","rezCommandLine()");
+					var dwitekLogo = document.createElement("img");
+						dwitekLogo.setAttribute("src","dwitek.gif");
+						dwitekLogo.setAttribute("onclick","dwitek()");
 					var cell = document.createElement("td");
 						cell.appendChild(homeButton);
 					var cell2 = document.createElement("td");
 						cell2.appendChild(terminalIcon);
+					var cell3 = document.createElement("td");
+						cell3.appendChild(dwitekLogo);
 					var menuText = document.createTextNode("Main Menu");
 					var menuRow = document.createElement("tr");
 						menuRow.id = "toolBox";
 						menuRow.appendChild(cell);
 						menuRow.appendChild(cell2);
+						menuRow.appendChild(cell3);
 					var menu = document.createElement("table");
 						menu.appendChild(menuRow);
 					var menuWrapper = document.createElement("div");
@@ -97,9 +115,34 @@
 						if(browser){
 							document.body.removeChild(browser);
 						}
+					var aboutUs = document.getElementById("aboutUs");
+						if(aboutUs){
+							document.body.removeChild(aboutUs);
+						}
 						counter--;
 				}
 					
+			}
+			function dwitek(){
+				var hiturunk = document.createElement("img");
+					hiturunk.src = "hiturunk.jpg";
+					hiturunk.setAttribute("onclick","openPopup('http://www.facebook.com/hiturunk')");
+				dwitekStaff[2] = hiturunk;
+				var dwitekDesc = document.createTextNode("Dwitek is a technical logistics and software company that provides web-hosting, website development, advertising, and PC repair services.");
+				var h1 = document.createElement("h1");
+					h1.appendChild(document.createTextNode("Who we are:"));
+				var p1 = document.createElement("p");
+					p1.appendChild(dwitekDesc);
+				var p2 = document.createElement("p");
+					p2.appendChild(document.createTextNode("Currently Dwitek is staffed by " + dwitekStaff[0] + ", " + dwitekStaff[1] + ", "));
+					p2.appendChild(dwitekStaff[2]);
+					p2.appendChild(document.createTextNode(", " + dwitekStaff[3] + ", and " + dwitekStaff[4] + "."));
+				var aboutUs = document.createElement("div");
+					aboutUs.id = "aboutUs";
+					aboutUs.appendChild(h1);
+					aboutUs.appendChild(p1);
+					aboutUs.appendChild(p2);
+				document.body.appendChild(aboutUs);
 			}
 			function rezBookmark(url,imgsrc) {
 				var toolBox = document.getElementById("toolBox");
