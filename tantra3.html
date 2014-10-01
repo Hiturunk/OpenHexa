@@ -73,6 +73,7 @@
 			var counter = 0;
 			function start(){
 				if(counter == 0){
+					var links = localStorage.getItem('linkList');
 					var homeButton = document.getElementById("homeButton");
 					var terminalIcon = document.createElement("img");
 						terminalIcon.setAttribute("src","terminal.png");
@@ -106,6 +107,9 @@
 						menuWrapper.appendChild(menu);
 					document.body.appendChild(menuWrapper);
 					counter++;
+					if(links){
+						addBookmarks(links);
+					}
 					alert("Welcome to the Panarka webspace, currently our project is limited to a command-line interface and iframed Browsing window. To access the command line, click on the terminal icon.");
 				}
 				else {
@@ -163,8 +167,7 @@
 					link.setAttribute("onclick","goto('" + url + "')");
 					toolBox.appendChild(link);
 			}
-			function addBookmarks() {
-				var input = prompt("Enter the link data as URL,IMG_URL","http://www.cnet.com/,test.jpg");
+			function addBookmarks(input) {
 				var inputSplit = input.split(" ");
 				for(i=0;i<inputSplit.length;i++){
 					var link = inputSplit[i].split(",");
@@ -172,6 +175,18 @@
 					var linksrc = link[1];
 					rezBookmark(linkurl,linksrc);
 				}
+			}
+			function inputBookmarks() {
+				var oldLinks = localStorage.getItem("linkList");
+				var input = prompt("Enter the link data as URL,IMG_URL","http://www.cnet.com/,test.jpg");
+				var newLinks = oldLinks + " " + input;
+				addBookmarks(input);
+					if(oldLinks){
+						localStorage.setItem("linkList",newLinks);
+					}
+					else{
+						localStorage.setItem("linkList",input);
+					}
 			}
 			function base_convert(number, from_base, to_base) {
 				return parseInt(number, from_base || 10).toString(to_base || 10);
@@ -230,7 +245,7 @@
 						bBox.id = "browserBox";
 						bBox.appendChild(browser);
 					var bookmarkButton = document.createElement("button");
-						bookmarkButton.setAttribute("onclick","addBookmarks()");
+						bookmarkButton.setAttribute("onclick","inputBookmarks()");
 						bookmarkButton.innerHTML="Add Bookmark";
 					var toolBox = document.createElement("div");
 						toolBox.id = "toolBox";
@@ -243,6 +258,10 @@
 						wrapper.appendChild(bBox);
 					document.body.appendChild(wrapper);
 				}
+			}
+			function clearBookmarks(){
+				localStorage.removeItem("linkList");
+				alert("Bookmarks removed! Close and Re-Open the main menu to refresh.");
 			}
 			function rezBrowserTo(url){
 				var browser = document.createElement("iframe");
@@ -346,10 +365,13 @@
 						evaluate(ex);
 						break;
 					case 'help':
-						alert("Current commands are run, eval, and help. The current list of programs: test, rezElement, calculator, browser, and 3dbrowser. Usage Ex: run browser");
+						alert("Current commands are run, eval, help, evalbase12, and clearBookmarks. The current list of programs: test, rezElement, calculator, browser, and 3dbrowser. Usage Ex: run browser");
 					case 'evalbase12':
 						var ex = dataSplit[1];
 						base12Calculation(ex);
+						break;
+					case 'clearBookmarks':
+						clearBookmarks();
 						break;
 				}
 			};
