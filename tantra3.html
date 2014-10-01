@@ -217,9 +217,13 @@
 				alert(answer);
 			}
 			function goto(url) {
-				var urldata = url;
 				var browser = document.getElementById("browser");
-					browser.src = urldata;
+					if(browser){
+						browser.src = url;
+					}
+					else{
+						rezBrowserTo(url);
+					}
 			}
 			function changeIframe() {
 				var url = document.getElementById("addressBar").value;
@@ -276,10 +280,17 @@
 				var browserBox = document.createElement("div");
 					browserBox.id = "browserBox";
 					browserBox.appendChild(browser);
+				var bookmarkButton = document.createElement("button");
+					bookmarkButton.setAttribute("onclick","inputBookmarks()");
+					bookmarkButton.innerHTML="Add Bookmark";
+				var toolBox = document.createElement("div");
+					toolBox.id = "toolBox";
+					toolBox.appendChild(addressBar);
+					toolBox.appendChild(go);
+					toolBox.appendChild(bookmarkButton);
 				var wrapper = document.createElement("div");
-					wrapper.id = "browserWrapper";
-					wrapper.appendChild(addressBar);
-					wrapper.appendChild(go);
+					wrapper.id = "wrapper";
+					wrapper.appendChild(toolBox);
 					wrapper.appendChild(browserBox);
 				document.body.appendChild(wrapper);
 			}
