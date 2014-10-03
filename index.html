@@ -191,18 +191,10 @@
 			function base_convert(number, from_base, to_base) {
 				return parseInt(number, from_base || 10).toString(to_base || 10);
 			}
-			function base20Calculation(ex){
+			function baseCalculation(ex,base){
 				var answer = eval(ex);
-				var base20answer = base_convert(answer,10,20);
-				var answerText = ex.toString() + " = " + base20answer.toString() + " in base 20." + " in base 10 this would be expressed as " + answer.toString();
-				var answerNode = document.createTextNode(answerText);
-				var historyNode = document.getElementById("historyNode");
-					historyNode.appendChild(answerNode);
-			}
-			function base12Calculation(ex){
-				var answer = eval(ex);
-				var base12answer = base_convert(answer,10,12);
-				var answerText = ex.toString() + " = " + base12answer.toString() + " in base 12." + " in base 10 this would be expressed as " + answer.toString();
+				var baseAnswer = base_convert(answer,10,base);
+				var answerText = ex.toString() + " = " + baseAnswer.toString() + " in base 20." + " in base 10 this would be expressed as " + answer.toString();
 				var answerNode = document.createTextNode(answerText);
 				var historyNode = document.getElementById("historyNode");
 					historyNode.appendChild(answerNode);
@@ -384,17 +376,14 @@
 						evaluate(ex);
 						break;
 					case 'help':
-						alert("Current commands are run, eval, help, evalbase12, and clearBookmarks. The current list of programs: test, rezElement, calculator, browser, and 3dbrowser. Usage Ex: run browser");
-					case 'evalbase12':
-						var ex = dataSplit[1];
-						base12Calculation(ex);
-						break;
+						alert("Current commands are run, eval, help, evalbase, and clearBookmarks. The current list of programs: test, rezElement, calculator, browser, and 3dbrowser. Usage Ex: run browser");
 					case 'clearBookmarks':
 						clearBookmarks();
 						break;
-					case 'evalbase20':
+					case 'evalbase':
 						var ex = dataSplit[1];
-						base20Calculation(ex);
+						var base = dataSplit[2];
+						baseCalculation(ex,base);
 						break;
 				}
 			};
