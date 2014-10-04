@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+	<head>
+		<script>
+			function start() {
+				var nameField = document.createElement("input");
+					nameField.type = "text";
+					nameField.id = "nameField";
+				var saveB = document.createElement("button");
+					saveB.setAttribute("onclick","save()");
+					saveB.innerHTML = "Save";
+				var loadB = document.createElement("button");
+					loadB.setAttribute("onclick","load()"); 
+					loadB.innerHTML = "Load";
+				var cell0 = document.createElement("td");
+					cell0.appendChild(nameField);
+				var cell1 = document.createElement("td");
+					cell1.appendChild(saveB);
+				var cell2 = document.createElement("td");
+					cell2.appendChild(loadB);
+				var toolBar = document.createElement("tr");
+					toolBar.appendChild(cell0);
+					toolBar.appendChild(cell1);
+					toolBar.appendChild(cell2);
+				document.body.appendChild(toolBar);
+				var textInput = document.createElement("textarea")
+					textInput.id = "textInput";
+				document.body.appendChild(textInput);
+			}
+			function save() {
+				var nameField = document.getElementById("nameField")
+				var textInput = document.getElementById("textInput");
+				var name = nameField.value;
+					localStorage.setItem(name,textInput.value);
+			}
+			function load() {
+				var nameField = document.getElementById("nameField");
+				var name = nameField.value;
+				var textInput = document.getElementById("textInput");
+					textInput.value = localStorage.getItem(name);
+			}
+		</script>
+	</head>
+	<body onload="start()">
+	</body>
+</html>
