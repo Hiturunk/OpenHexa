@@ -73,9 +73,9 @@
 			var counter = 0;
 			var started = false;
 			function returnIcon(icon){
-					var hiturunk = document.createElement("img");
-						hiturunk.src = "hiturunk.jpg";
-						hiturunk.setAttribute("onclick","openPopup('http://www.facebook.com/hiturunk')");
+					var hiturunkIcon = document.createElement("img");
+						hiturunkIcon.src = "hiturunk.jpg";
+						hiturunkIcon.setAttribute("onclick","openPopup('http://www.facebook.com/hiturunk')");
 					var terminalIcon = document.createElement("img");
 						terminalIcon.setAttribute("src","terminal.png");
 						terminalIcon.setAttribute("onclick","rezCommandLine()");
@@ -85,6 +85,12 @@
 					var browserIcon = document.createElement("img");
 						browserIcon.setAttribute("src","browser.png");
 						browserIcon.setAttribute("onclick","rezBrowser()");
+					var textArkaIcon = document.createElement("img");
+						textArkaIcon.setAttribute("src","textArka.png");
+						textArkaIcon.setAttribute("onclick","openPopup('textArka/index.html')");
+					var calculatorIcon = document.createElement("img");
+						calculatorIcon.setAttribute("src","calculator.png");
+						calculatorIcon.setAttribute("onclick","openPopup('calculator/calculator.html')");
 				switch(icon){
 					case 'terminal':
 						return terminalIcon;
@@ -96,14 +102,20 @@
 						return browserIcon;
 						break;
 					case 'Hiturunk':
-						return hiturunk;
+						return hiturunkIcon;
+						break;
+					case 'textArka':
+						return textArkaIcon;
+						break;
+					case 'calculator':
+						return calculatorIcon;
 						break;
 				}
 			}
 			function start(){
 				if(counter == 0){
 					var links = localStorage.getItem('linkList');
-					var programs = ["terminal","dwitek","browser"];
+					var programs = ["terminal","dwitek","browser","textArka","calculator"];
 					var homeButton = document.getElementById("homeButton");
 					var cell = document.createElement("td");
 					var homeCell = document.createElement("td");
