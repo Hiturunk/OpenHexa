@@ -71,10 +71,10 @@
 			var dwitekStaff = ["Leon","Dwi","Hiturunk","Summer","Kion"];
 			var historyLength = 0;
 			var counter = 0;
-			function start(){
-				if(counter == 0){
-					var links = localStorage.getItem('linkList');
-					var homeButton = document.getElementById("homeButton");
+			function returnIcon(icon){
+					var hiturunk = document.createElement("img");
+						hiturunk.src = "hiturunk.jpg";
+						hiturunk.setAttribute("onclick","openPopup('http://www.facebook.com/hiturunk')");
 					var terminalIcon = document.createElement("img");
 						terminalIcon.setAttribute("src","terminal.png");
 						terminalIcon.setAttribute("onclick","rezCommandLine()");
@@ -84,21 +84,41 @@
 					var browserIcon = document.createElement("img");
 						browserIcon.setAttribute("src","browser.png");
 						browserIcon.setAttribute("onclick","rezBrowser()");
+				switch(icon){
+					case 'terminal':
+						return terminalIcon;
+						break;
+					case 'dwitek':
+						return dwitekIcon;
+						break;
+					case 'browser':
+						return browserIcon;
+						break;
+					case 'Hiturunk':
+						return hiturunk;
+						break;
+				}
+			}
+			function start(){
+				if(counter == 0){
+					var links = localStorage.getItem('linkList');
+					var programs = ["terminal","dwitek","browser"];
+					var homeButton = document.getElementById("homeButton");
 					var cell = document.createElement("td");
-						cell.appendChild(homeButton);
-					var cell2 = document.createElement("td");
-						cell2.appendChild(terminalIcon);
-					var cell3 = document.createElement("td");
-						cell3.appendChild(dwitekIcon);
-					var cell4 = document.createElement("td");
-						cell4.appendChild(browserIcon);
+					var homeCell = document.createElement("td");
+						homeCell.appendChild(homeButton);
 					var menuText = document.createTextNode("Main Menu");
 					var menuRow = document.createElement("tr");
 						menuRow.id = "toolBox";
-						menuRow.appendChild(cell);
-						menuRow.appendChild(cell2);
-						menuRow.appendChild(cell3);
-						menuRow.appendChild(cell4);
+						menuRow.appendChild(homeCell);
+					for (i=0;i<programs.length;i++){
+						var rezzer = returnIcon(programs[i]);
+							rezzer.id = "program" + i;
+						var cell = document.createElement("td");
+							cell.id = "cell" + i;
+							cell.appendChild(rezzer);
+							menuRow.appendChild(cell);
+					}
 					var menu = document.createElement("table");
 						menu.appendChild(menuRow);
 					var menuWrapper = document.createElement("div");
@@ -131,13 +151,9 @@
 						}
 						counter--;
 				}
-					
 			}
 			function dwitek(){
-				var hiturunk = document.createElement("img");
-					hiturunk.src = "hiturunk.jpg";
-					hiturunk.setAttribute("onclick","openPopup('http://www.facebook.com/hiturunk')");
-				dwitekStaff[2] = hiturunk;
+				dwitekStaff[2] = returnIcon(dwitekStaff[2]);
 				var existing = document.getElementById("aboutUs");
 				if(existing){
 					document.body.removeChild(existing);
