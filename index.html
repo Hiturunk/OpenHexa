@@ -71,6 +71,7 @@
 			var dwitekStaff = ["Leon","Dwi","Hiturunk","Summer","Kion"];
 			var historyLength = 0;
 			var counter = 0;
+			var started = false;
 			function returnIcon(icon){
 					var hiturunk = document.createElement("img");
 						hiturunk.src = "hiturunk.jpg";
@@ -130,7 +131,10 @@
 					if(links){
 						addBookmarks(links);
 					}
-					alert("Welcome to the Panarka webspace, currently our project is limited to a command-line interface and iframed Browsing window. To access the command line, click on the terminal icon.");
+					if(started == false){
+						alert("Welcome to the Panarka webspace, currently our project is limited to a command-line interface and iframed Browsing window. To access the command line, click on the terminal icon.");
+						started = true;
+					}
 				}
 				else {
 					var homeButton = document.getElementById("homeButton");
@@ -153,7 +157,9 @@
 				}
 			}
 			function dwitek(){
-				dwitekStaff[2] = returnIcon(dwitekStaff[2]);
+				if(dwitekStaff[2] == "Hiturunk"){
+					dwitekStaff[2] = returnIcon(dwitekStaff[2]);
+				}
 				var existing = document.getElementById("aboutUs");
 				if(existing){
 					document.body.removeChild(existing);
