@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link type="text/css" rel="stylesheet" href="Calculator/calculator.css"></link>
+		<link type="text/css" rel="stylesheet" href="calculator.css"></link>
 		<script type="text/javascript" language='javascript'>
 			function calcButton(val) {
                 document.getElementById("calcarea").value += val;
@@ -19,8 +19,8 @@
 		<table>
 			<thead><tr><td><input type="textarea" id="calcarea"></td></tr></thead>
 			<tbody>
-				<tr><td><button onclick='calcButton(7)'>7</button></td><td><button onclick='calcButton(8)'>8</button></td><td><button onclick='calcButton(9)'>9</button></td><td><button onclick='calcButton("+")'>+</button><td><button onclick='calcButton(*)'>*</button></td></td></td></tr>
-				<tr><td><button onclick='calcButton(4)'>4</button></td><td><button onclick='calcButton(5)'>5</button></td><td><button onclick='calcButton(6)'>6</button></td><td><button onclick='calcButton("-")'>-</button></td><td><button onclick='calcButton(/)'>/</button></td></tr>
+				<tr><td><button onclick='calcButton(7)'>7</button></td><td><button onclick='calcButton(8)'>8</button></td><td><button onclick='calcButton(9)'>9</button></td><td><button onclick='calcButton("+")'>+</button><td><button onclick='calcButton("*")'>*</button></td></td></td></tr>
+				<tr><td><button onclick='calcButton(4)'>4</button></td><td><button onclick='calcButton(5)'>5</button></td><td><button onclick='calcButton(6)'>6</button></td><td><button onclick='calcButton("-")'>-</button></td><td><button onclick='calcButton("/")'>/</button></td></tr>
 				<tr><td><button onclick='calcButton(1)'>1</button></td><td><button onclick='calcButton(2)'>2</button></td><td><button onclick='calcButton(3)'>3</button></td><td><button onclick='calcEquals()'>=</button></td></tr>
 				<tr><td><button onclick='calcButton(0)'>0</button></td><td><button onclick='calcReturn("")'>Clear</button></td></tr>
 			</tbody>
