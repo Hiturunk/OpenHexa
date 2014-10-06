@@ -79,6 +79,7 @@
 		</style>
 		<script>
 			var dwitekStaff = ["Leon","Hiturunk","Kion","Summer"];
+			var dwitekStaffText = [];
 			var historyLength = 0;
 			var counter = 0;
 			var started = false;
@@ -198,6 +199,7 @@
 			}
 			function dwitek(){
 				for(i=0;i<dwitekStaff.length;i++){
+					dwitekStaffText.push(dwitekStaff[i]);
 					dwitekStaff[i] = returnIcon(dwitekStaff[i]);
 				}
 				var existing = document.getElementById("aboutUs");
@@ -205,7 +207,7 @@
 					document.body.removeChild(existing);
 				}
 				else {
-					var dwitekDesc = document.createTextNode("Dwitek is a technical logistics and software company that provides web-hosting, website development, advertising, and PC repair services.");
+					var dwitekDesc = document.createTextNode("The Cyber Surgeons are a technical logistics and software company that provide web-hosting, website development, advertising, and PC repair services.");
 					var h1 = document.createElement("h1");
 						h1.appendChild(document.createTextNode("Who we are:"));
 					var p1 = document.createElement("p");
@@ -213,9 +215,12 @@
 					var p2 = document.createElement("p");
 						p2.appendChild(document.createTextNode("Currently Dwitek is staffed by:"));
 					for(var i=0;i<dwitekStaff.length;i++){
-						p2.appendChild(dwitekStaff[i]);
+					var rezzer = dwitekStaff[i];
+							rezzer.title = dwitekStaffText[i];
+						p2.appendChild(rezzer);
 						p2.appendChild(document.createTextNode(", "));
 					}
+						p2.appendChild(document.createTextNode("who can all be contracted or consulted to fit your needs."));
 					var aboutUs = document.createElement("div");
 						aboutUs.id = "aboutUs";
 						aboutUs.appendChild(h1);
