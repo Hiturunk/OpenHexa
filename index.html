@@ -36,7 +36,8 @@
 				z-index: 10;
 				background-color:#9999FF;
 				overflow: auto;
-				border: grey ridge 3px;
+				border-image: url("border4.png") 25% repeat repeat;
+				border-width: 20px;
 			}
 			#menu img {
 				height:50px;
@@ -60,22 +61,28 @@
 				border: 3px grey ridge;
 			}
 			#aboutUs {
-				background-color: grey;
+				background-color: #9999FF;
+				border-image: url("border4.png") 25% repeat repeat;
+				border-width: 20px;
 			}
 			#aboutUs p {
 				border: 3px grey ridge;
 				background-color: white;
 			}
+			#aboutUs img{
+				-webkit-transition: width 3s, height 3s;
+			}
+			#aboutUs img:hover {
+				height: 100px;
+				width: 100px;
+			}
 		</style>
 		<script>
-			var dwitekStaff = ["Leon","Dwi","Hiturunk","Summer","Kion"];
+			var dwitekStaff = ["Leon","Hiturunk","Kion","Summer"];
 			var historyLength = 0;
 			var counter = 0;
 			var started = false;
 			function returnIcon(icon){
-					var hiturunkIcon = document.createElement("img");
-						hiturunkIcon.src = "hiturunk.jpg";
-						hiturunkIcon.setAttribute("onclick","openPopup('http://www.facebook.com/hiturunk')");
 					var terminalIcon = document.createElement("img");
 						terminalIcon.setAttribute("src","terminal.png");
 						terminalIcon.setAttribute("onclick","rezCommandLine()");
@@ -91,6 +98,18 @@
 					var calculatorIcon = document.createElement("img");
 						calculatorIcon.setAttribute("src","calculator.png");
 						calculatorIcon.setAttribute("onclick","openPopup('calculator/calculator.html')");
+					var leonIcon = document.createElement("img");
+						leonIcon.setAttribute("src","leon.jpg");
+						leonIcon.setAttribute("onclick","openPopup('https://www.facebook.com/leon.javary')");
+					var kionIcon = document.createElement("img");
+						kionIcon.setAttribute("src","test.jpg");
+						kionIcon.setAttribute("onclick","rezBrowserTo('http://www.google.com/')");
+					var summerIcon = document.createElement("img");
+						summerIcon.setAttribute("src","test.jpg");
+						summerIcon.setAttribute("onclick","RezBrowserTo('http://www.google.com/')");
+					var hiturunkIcon = document.createElement("img");
+						hiturunkIcon.src = "hiturunk.jpg";
+						hiturunkIcon.setAttribute("onclick","openPopup('http://www.facebook.com/hiturunk')");
 				switch(icon){
 					case 'terminal':
 						return terminalIcon;
@@ -104,11 +123,20 @@
 					case 'Hiturunk':
 						return hiturunkIcon;
 						break;
+					case 'Leon':
+						return leonIcon;
+						break;
+					case 'Kion':
+						return kionIcon;
+						break;
 					case 'textArka':
 						return textArkaIcon;
 						break;
 					case 'calculator':
 						return calculatorIcon;
+						break;
+					case 'Summer':
+						return summerIcon;
 						break;
 				}
 			}
@@ -169,8 +197,8 @@
 				}
 			}
 			function dwitek(){
-				if(dwitekStaff[2] == "Hiturunk"){
-					dwitekStaff[2] = returnIcon(dwitekStaff[2]);
+				for(i=0;i<dwitekStaff.length;i++){
+					dwitekStaff[i] = returnIcon(dwitekStaff[i]);
 				}
 				var existing = document.getElementById("aboutUs");
 				if(existing){
@@ -183,9 +211,11 @@
 					var p1 = document.createElement("p");
 						p1.appendChild(dwitekDesc);
 					var p2 = document.createElement("p");
-						p2.appendChild(document.createTextNode("Currently Dwitek is staffed by " + dwitekStaff[0] + ", " + dwitekStaff[1] + ", "));
-						p2.appendChild(dwitekStaff[2]);
-						p2.appendChild(document.createTextNode(", " + dwitekStaff[3] + ", and " + dwitekStaff[4] + "."));
+						p2.appendChild(document.createTextNode("Currently Dwitek is staffed by:"));
+					for(var i=0;i<dwitekStaff.length;i++){
+						p2.appendChild(dwitekStaff[i]);
+						p2.appendChild(document.createTextNode(", "));
+					}
 					var aboutUs = document.createElement("div");
 						aboutUs.id = "aboutUs";
 						aboutUs.appendChild(h1);
