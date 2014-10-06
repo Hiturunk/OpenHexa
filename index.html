@@ -3,7 +3,7 @@
 	<head>
 		<style>
 			body {
-				background-image: url('matrix.gif');
+				background-image: url('images/matrix.gif');
 			}
 			#homeButton {
 				border: grey ridge 3px;
@@ -36,7 +36,7 @@
 				z-index: 10;
 				background-color:#9999FF;
 				overflow: auto;
-				border-image: url("border4.png") 25% repeat repeat;
+				border-image: url("images/border4.png") 25% repeat repeat;
 				border-width: 20px;
 			}
 			#menu img {
@@ -62,7 +62,7 @@
 			}
 			#aboutUs {
 				background-color: #9999FF;
-				border-image: url("border4.png") 25% repeat repeat;
+				border-image: url("images/border4.png") 25% repeat repeat;
 				border-width: 20px;
 			}
 			#aboutUs p {
@@ -84,31 +84,31 @@
 			var started = false;
 			function returnIcon(icon){
 					var terminalIcon = document.createElement("img");
-						terminalIcon.setAttribute("src","terminal.png");
+						terminalIcon.setAttribute("src","images/terminal.png");
 						terminalIcon.setAttribute("onclick","rezCommandLine()");
 					var dwitekIcon = document.createElement("img");
-						dwitekIcon.setAttribute("src","dwitek.gif");
+						dwitekIcon.setAttribute("src","images/HexaMark.png");
 						dwitekIcon.setAttribute("onclick","dwitek()");
 					var browserIcon = document.createElement("img");
-						browserIcon.setAttribute("src","browser.png");
+						browserIcon.setAttribute("src","images/browser.png");
 						browserIcon.setAttribute("onclick","rezBrowser()");
 					var textArkaIcon = document.createElement("img");
-						textArkaIcon.setAttribute("src","textArka.png");
+						textArkaIcon.setAttribute("src","images/textArka.png");
 						textArkaIcon.setAttribute("onclick","openPopup('textArka/index.html')");
 					var calculatorIcon = document.createElement("img");
-						calculatorIcon.setAttribute("src","calculator.png");
+						calculatorIcon.setAttribute("src","images/calculator.png");
 						calculatorIcon.setAttribute("onclick","openPopup('calculator/calculator.html')");
 					var leonIcon = document.createElement("img");
-						leonIcon.setAttribute("src","leon.jpg");
+						leonIcon.setAttribute("src","images/leon.jpg");
 						leonIcon.setAttribute("onclick","openPopup('https://www.facebook.com/leon.javary')");
 					var kionIcon = document.createElement("img");
-						kionIcon.setAttribute("src","test.jpg");
+						kionIcon.setAttribute("src","images/test.jpg");
 						kionIcon.setAttribute("onclick","rezBrowserTo('http://www.google.com/')");
 					var summerIcon = document.createElement("img");
-						summerIcon.setAttribute("src","test.jpg");
+						summerIcon.setAttribute("src","images/test.jpg");
 						summerIcon.setAttribute("onclick","RezBrowserTo('http://www.google.com/')");
 					var hiturunkIcon = document.createElement("img");
-						hiturunkIcon.src = "hiturunk.jpg";
+						hiturunkIcon.src = "images/hiturunk.jpg";
 						hiturunkIcon.setAttribute("onclick","openPopup('http://www.facebook.com/hiturunk')");
 				switch(icon){
 					case 'terminal':
@@ -454,6 +454,6 @@
 		</script>
 	</head>
 	<body>
-		<image src="home.png" id="homeButton" onclick="start()"></image>
+		<image src="images/home.png" id="homeButton" onclick="start()"></image>
 	</body>
 </html>
