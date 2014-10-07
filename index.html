@@ -198,9 +198,11 @@
 				}
 			}
 			function dwitek(){
-				for(i=0;i<dwitekStaff.length;i++){
-					dwitekStaffText.push(dwitekStaff[i]);
-					dwitekStaff[i] = returnIcon(dwitekStaff[i]);
+				if(typeof dwitekStaff[0] == "string"){
+					for(i=0;i<dwitekStaff.length;i++){
+						dwitekStaffText.push(dwitekStaff[i]);
+						dwitekStaff[i] = returnIcon(dwitekStaff[i]);
+					}
 				}
 				var existing = document.getElementById("aboutUs");
 				if(existing){
@@ -215,7 +217,7 @@
 					var p2 = document.createElement("p");
 						p2.appendChild(document.createTextNode("Currently Dwitek is staffed by:"));
 					for(var i=0;i<dwitekStaff.length;i++){
-					var rezzer = dwitekStaff[i];
+						var rezzer = dwitekStaff[i];
 							rezzer.title = dwitekStaffText[i];
 						p2.appendChild(rezzer);
 						p2.appendChild(document.createTextNode(", "));
