@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+	<head>
+		<style>
+			img {
+				height:50px;
+				width:50px;
+			}
+		</style>
+		<script>
+			var seaLevel = 0;
+			var startUnits = 1;
+			var started = 0;
+			function start(worldSize,seaLevelInput) {
+				seaLevel = seaLevelInput;
+				var wrapper = document.createElement("div");
+				var toolBar = document.createElement("div");
+				var gameStartButton = document.createElement("img");
+					gameStartButton.src = "images/HexaMark.png";
+					gameStartButton.setAttribute("onclick","startGame()");
+				toolBar.appendChild(gameStartButton);
+				wrapper.appendChild(toolBar);
+				var world = document.createElement("table");
+				for(x=0;x<worldSize;x++){
+					var row = document.createElement("tr");
+					for(y=0;y<worldSize;y++){
+						var cell = document.createElement("td");
+						cell.id = "cell"+x+y;
+						cell.setAttribute("onclick","clicked(" + x + "," + y + ");");
+						var tileH = randomNumber(10);
+						alert(tileH);
+						var tile = returnTile(tileH);
+						cell.appendChild(tile);
+						row.appendChild(cell);
+					}
+					world.appendChild(row);
+				}
+				wrapper.appendChild(world);
+				document.body.appendChild(wrapper);
+			}
+			function randomNumber(ceiling){
+				return Math.floor(Math.random() * ceiling);
+			}
+			function returnTile(tileHeight) {
+				var ocean = document.createElement("img");
+					ocean.id = "Ocean";
+					ocean.src = "images/ocean.jpg";
+				var plain = document.createElement("img");
+					plain.id = "Plain";
+					plain.src = "images/plain.jpg";
+				if(tileHeight<=seaLevel){
+					return ocean;
+				}
+				else if(tileHeight>seaLevel){
+					return plain;
+				}
+			}
+			function returnUnit(unit) {
+				var settlerIcon = document.createElement("img");
+					settler.id = "Settler";
+					settler.src = "images/settler.jpg";
+				switch(unit){
+					case 'settler':
+						return settlerIcon;
+						break;
+				}
+			}
+			function startGame() {
+			}
+			function clicked(x,y) {
+				var element = document.getElementById("cell" + x + y);
+				console.log(element.id);
+			}
+		</script>
+	</head>
+	<body onload="start(10,5)">
+	</body>
+</html>
