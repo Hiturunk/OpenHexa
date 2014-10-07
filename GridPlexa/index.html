@@ -26,6 +26,7 @@
 					for(y=0;y<worldSize;y++){
 						var cell = document.createElement("td");
 						cell.id = "cell"+x+y;
+						cell.setAttribute("onmouseover","hover(" + x + "," + y + ");");
 						cell.setAttribute("onclick","clicked(" + x + "," + y + ");");
 						var tileH = randomNumber(10);
 						alert(tileH);
@@ -57,8 +58,8 @@
 			}
 			function returnUnit(unit) {
 				var settlerIcon = document.createElement("img");
-					settler.id = "Settler";
-					settler.src = "images/settler.jpg";
+					settlerIcon.id = "Settler";
+					settlerIcon.src = "images/settler.jpg";
 				switch(unit){
 					case 'settler':
 						return settlerIcon;
@@ -67,9 +68,18 @@
 			}
 			function startGame() {
 			}
-			function clicked(x,y) {
+			function hover(x,y) {
 				var element = document.getElementById("cell" + x + y);
 				console.log(element.id);
+			}
+			function clicked(x,y) {
+				var element = document.getElementById("cell" + x + y);
+				if(started<1){
+					var choice = alert("Start here? y/n","y");
+						if(choice = "y"){
+							element.appendChild(returnUnit("settler"));
+						}
+				}
 			}
 		</script>
 	</head>
