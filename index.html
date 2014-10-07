@@ -76,6 +76,9 @@
 				height: 100px;
 				width: 100px;
 			}
+			#google {
+				bottom: 0px;
+			}
 		</style>
 		<script>
 			var dwitekStaff = ["Leon","Hiturunk","Kion","Summer"];
@@ -142,6 +145,7 @@
 				}
 			}
 			function start(){
+				var google = document.getElementById("google");
 				if(counter == 0){
 					var links = localStorage.getItem('linkList');
 					var programs = ["terminal","dwitek","browser","textArka","calculator"];
@@ -167,6 +171,7 @@
 						menuWrapper.id = "menu";
 						menuWrapper.appendChild(menuText);
 						menuWrapper.appendChild(menu);
+						menuWrapper.appendChild(google);
 					document.body.appendChild(menuWrapper);
 					counter++;
 					if(links){
@@ -459,17 +464,20 @@
 				}
 			};
 		</script>
-		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-		<!-- OpenHexa -->
-		<ins class="adsbygoogle"
-		     style="display:inline-block;width:300px;height:250px"
-		     data-ad-client="ca-pub-2354188306197470"
-		     data-ad-slot="8061901440"></ins>
-		<script>
+		<div id="google">
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- OpenHexa -->
+			<ins class="adsbygoogle"
+			     style="display:inline-block;width:300px;height:250px;"
+			     data-ad-client="ca-pub-2354188306197470"
+			     data-ad-slot="8061901440">
+			</ins>
+			<script>
 			(adsbygoogle = window.adsbygoogle || []).push({});
-		</script>
+			</script>
+		</div>
 	</head>
-	<body onload = "start()">
+	<body onload="start()">
 		<image src="images/home.png" id="homeButton" onclick="start()"></image>
 	</body>
 </html>
