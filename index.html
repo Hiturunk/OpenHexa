@@ -145,7 +145,6 @@
 				}
 			}
 			function start(){
-				var google = document.getElementById("google");
 				if(counter == 0){
 					var links = localStorage.getItem('linkList');
 					var programs = ["terminal","dwitek","browser","textArka","calculator"];
@@ -171,7 +170,6 @@
 						menuWrapper.id = "menu";
 						menuWrapper.appendChild(menuText);
 						menuWrapper.appendChild(menu);
-						menuWrapper.appendChild(google);
 					document.body.appendChild(menuWrapper);
 					counter++;
 					if(links){
@@ -199,8 +197,6 @@
 						if(aboutUs){
 							document.body.removeChild(aboutUs);
 						}
-					var google = document.getElementById("google");
-						document.body.appendChild(google);
 						counter--;
 				}
 			}
@@ -421,7 +417,7 @@
 					historyNode.appendChild(line);
 				var cmd = dataSplit[0];
 				switch(cmd){
-					case 'run': case 'open':
+					case 'run': case 'open': case 'play':
 						var program = dataSplit[1];
 						alert("Running " + program);
 						switch(program){
@@ -448,7 +444,14 @@
 							case '3dbrowser':
 								openPopup("hexa/index.html");
 								break;
-						}
+							case 'game':
+								var whichGame = dataSplit[2];
+								switch(whichGame){
+									case 'plexa':
+										rezBrowserTo("gridPlexa/index.html");
+										break;
+								}
+						};
 					case 'eval':
 						var ex = dataSplit[1];
 						evaluate(ex);
@@ -466,18 +469,6 @@
 				}
 			};
 		</script>
-		<div id="google">
-			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<!-- OpenHexa -->
-			<ins class="adsbygoogle"
-			     style="display:inline-block;width:300px;height:250px;"
-			     data-ad-client="ca-pub-2354188306197470"
-			     data-ad-slot="8061901440">
-			</ins>
-			<script>
-			(adsbygoogle = window.adsbygoogle || []).push({});
-			</script>
-		</div>
 	</head>
 	<body onload="start()">
 		<image src="images/home.png" id="homeButton" onclick="start()"></image>
