@@ -21,7 +21,7 @@
 				var wrapper = document.createElement("div");
 				var toolBar = document.createElement("div");
 				var gameStartButton = document.createElement("img");
-					gameStartButton.src = "images/HexaMark.png";
+					gameStartButton.src = "Images/HexaMark.png";
 					gameStartButton.setAttribute("onclick","startGame()");
 				toolBar.appendChild(gameStartButton);
 				wrapper.appendChild(toolBar);
@@ -49,10 +49,10 @@
 			function returnTile(tileHeight) {
 				var ocean = document.createElement("img");
 					ocean.id = "Ocean";
-					ocean.src = "images/ocean.jpg";
+					ocean.src = "Images/ocean.jpg";
 				var plain = document.createElement("img");
 					plain.id = "Plain";
-					plain.src = "images/plain.jpg";
+					plain.src = "Images/plain.jpg";
 				if(tileHeight<=seaLevel){
 					return ocean;
 				}
@@ -63,7 +63,7 @@
 			function returnUnit(unit) {
 				var settlerIcon = document.createElement("img");
 					settlerIcon.id = "unit0";
-					settlerIcon.src = "images/settler.png";
+					settlerIcon.src = "Images/settler.png";
 				switch(unit){
 					case 'settler':
 						return settlerIcon;
