@@ -5,6 +5,11 @@
 			img {
 				height:50px;
 				width:50px;
+				position:absolute;
+			}
+			td {
+				height:50px;
+				width:50px;
 			}
 		</style>
 		<script>
@@ -21,16 +26,15 @@
 				toolBar.appendChild(gameStartButton);
 				wrapper.appendChild(toolBar);
 				var world = document.createElement("table");
-				for(x=0;x<worldSize;x++){
+				for(x=0;x<=worldSize;x++){
 					var row = document.createElement("tr");
-					for(y=0;y<worldSize;y++){
+					for(y=0;y<=worldSize;y++){
 						var cell = document.createElement("td");
 						cell.id = "cell"+x+y;
 						cell.setAttribute("onmouseover","hover(" + x + "," + y + ");");
-						cell.setAttribute("onclick","clicked(" + x + "," + y + ");");
 						var tileH = randomNumber(10);
-						alert(tileH);
 						var tile = returnTile(tileH);
+							tile.setAttribute("onclick","clicked(" + x + "," + y + ");");
 						cell.appendChild(tile);
 						row.appendChild(cell);
 					}
@@ -58,8 +62,8 @@
 			}
 			function returnUnit(unit) {
 				var settlerIcon = document.createElement("img");
-					settlerIcon.id = "Settler";
-					settlerIcon.src = "images/settler.jpg";
+					settlerIcon.id = "unit0";
+					settlerIcon.src = "images/settler.png";
 				switch(unit){
 					case 'settler':
 						return settlerIcon;
@@ -73,13 +77,39 @@
 				console.log(element.id);
 			}
 			function clicked(x,y) {
+				console.log("Woah");
 				var element = document.getElementById("cell" + x + y);
-				if(started<1){
-					var choice = alert("Start here? y/n","y");
-						if(choice = "y"){
+				if(started==0){
+					var userChoice = prompt("Start here?","y");
+						if(userChoice == "y"){
 							element.appendChild(returnUnit("settler"));
+							started++;
 						}
 				}
+				if(started==1){
+					check(x,y);
+				}
+			function check(x,y){
+				console.log("checking");
+				var cell = document.getElementById("cell" + x + y);
+				var unitNode = cell.childNodes[0];
+				var unit = unitNode.id;
+						switch(unit){
+							case 'settler':
+								console.log("moving");
+								move(x,y);
+								break;
+						}
+				}
+			}
+			function move(x,y){
+				console.log("moving");
+				var cell = document.getElementById("cell" + x + y);
+				var unit = cell.childNodes[1];
+				unit.parentNode.removeChild(unit);
+				var where = prompt("Move where?","00");
+				var target = getElementById("cell" + where);
+				target.appendChild(unit);
 			}
 		</script>
 	</head>
