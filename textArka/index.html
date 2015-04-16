@@ -2,15 +2,15 @@
 <html>
 	<head>
 		<script>
-			function start() {
+			function startTextEditor() {
 				var nameField = document.createElement("input");
 					nameField.type = "text";
 					nameField.id = "nameField";
 				var saveB = document.createElement("button");
-					saveB.setAttribute("onclick","save()");
+					saveB.setAttribute("onclick","saveTextEditor()");
 					saveB.innerHTML = "Save";
 				var loadB = document.createElement("button");
-					loadB.setAttribute("onclick","load()"); 
+					loadB.setAttribute("onclick","loadTextEditor()"); 
 					loadB.innerHTML = "Load";
 				var cell0 = document.createElement("td");
 					cell0.appendChild(nameField);
@@ -27,13 +27,13 @@
 					textInput.id = "textInput";
 				document.body.appendChild(textInput);
 			}
-			function save() {
+			function saveTextEditor() {
 				var nameField = document.getElementById("nameField")
 				var textInput = document.getElementById("textInput");
 				var name = nameField.value;
 					localStorage.setItem(name,textInput.value);
 			}
-			function load() {
+			function loadTextEditor() {
 				var nameField = document.getElementById("nameField");
 				var name = nameField.value;
 				var textInput = document.getElementById("textInput");
@@ -41,6 +41,6 @@
 			}
 		</script>
 	</head>
-	<body onload="start()">
+	<body onload="startTextEditor()">
 	</body>
 </html>
